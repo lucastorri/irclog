@@ -1,0 +1,23 @@
+@(results: Option[String] = None)
+
+@main("Welcome to IRC Search") {
+    
+    <div class="topbar">
+      <div class="fill">
+        <div class="container fixed">
+          <h3><a href="#">Freenode Search</a></h3>
+          <form>
+            <input id="q" type="text" placeholder="Search" style="height: 20px;">
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="container" style="margin-top: 60px">
+      <div class="row">
+        <ul id="searchresults">
+        </ul>
+      </div>
+    </div>
+    
+}

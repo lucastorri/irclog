@@ -1,0 +1,9 @@
+@(log: Log)
+
+@main(log.filename) {
+
+	@log.lines.zipWithIndex.map { case (l, n) =>
+		<a name="@n">@l</a><br/>
+	}
+	
+}
