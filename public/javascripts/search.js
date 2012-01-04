@@ -18,7 +18,7 @@ $(function() {
             var result = JSON.parse(msg.data);
 			
 			result.files.forEach(function(file) {
-                var fileUrl = document.URL + 'log/' + file;
+                var fileUrl = document.URL + 'log/' + file + "?hl=" + result.query;
                 var fileElement = $('<li/>', {
                     'class': 'result'
                 });

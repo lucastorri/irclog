@@ -14,8 +14,8 @@ object SearchResponse {
 		r match {
 			case Some(result) => {
 				val q = result.query
-				val files = result.files.map { case (f, previews) => f.getName }
-				val previews = result.files.map { case (f, previews) => (f.getName, previews) }.toMap
+				val files = result.files.map { case (f, previews) => f }
+				val previews = result.files.toMap
 				new SearchResponse(q, files, previews)
 			}
 			case None => new SearchResponse()

@@ -1,9 +1,9 @@
-@(log: Log)
+@(log: String)
 
-@main(log.filename) {
+@main("file") {
 
-	@log.lines.zipWithIndex.map { case (l, n) =>
-		<a name="@n">@l</a><br/>
+	@log.lines.map { line =>
+		<p>@Html(line)</p>
 	}
 	
 }
