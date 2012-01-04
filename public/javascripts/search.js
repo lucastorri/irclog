@@ -28,11 +28,9 @@ $(function() {
                 }).appendTo(fileElement);
                 var previewElements = $('<ul/>',{});
 				result.previews[file].forEach(function(p) {
-                    var previewElement = $('<li/>', {});
-                    $('<a/>', {
-                        'href': fileUrl + '#', //+ line number
-                        'html': p
-                    }).appendTo(previewElement);
+                    var previewElement = $('<li/>', {
+						'html': p
+					});
                     previewElement.appendTo(previewElements);
 				});
                 previewElements.appendTo(fileElement);
