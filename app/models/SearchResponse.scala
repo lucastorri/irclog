@@ -7,31 +7,18 @@ import scala.collection.mutable.HashMap
 import scala.io.Source
 
 
-class SearchResponse(val query: String = "", files: List[File] = List()) {
-
-	private val previewsLimit = 3
-	private val words = query.split(" ")
-	
-	// move to reindxr
-	val previews = {
-		val p = new HashMap[String, List[(String, Int)]]() { override def default(key: String) = List[(String,Int)]() }
-		files.foreach { f =>
-			Source.fromFile(f).mkString.split("\n").zipWithIndex.takeWhile { case (l,n) =>
-				if (words.find{w => l.toLowerCase.contains(w.toLowerCase)}.isDefined) {
-					p(f.getName) = (l,n) :: p(f.getName)
-				}
-
-				p(f.getName).size < previewsLimit
-			}
-		}
-		p
-	}
-
-}
+case class SearchResponse(query: String = "", files: List[String] = List(), previews: Map[String,List[String]] = Map())
 
 object SearchResponse {
-	def apply(r: Option[SearchIndexResult]) = (r match {
-		case Some(result) => new SearchResponse(result.query, result.files)
-		case None => new SearchResponse()
-	}).toJSON.toString
+	def apply(r: Option[SearchIndexResult]) = {
+		r match {
+			case Some(result) => {
+				val q = result.query
+				val files = result.files.map { case (f, previews) => f.getName }
+				val previews = result.files.map { case (f, previews) => (f.getName, previews) }.toMap
+				new SearchResponse(q, files, previews)
+			}
+			case None => new SearchResponse()
+		}
+	}.toJSON.toString
 }

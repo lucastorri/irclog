@@ -1,7 +1,6 @@
 package controllers
 
 import models._
-import play.api.Play._
 import play.api.libs.iteratee.Input.EOF
 import play.api.mvc.Action
 import play.api.mvc.Controller
@@ -13,6 +12,7 @@ import akka.actor.actorRef2Scala
 import akka.actor.ActorRef
 import co.torri.reindxr.index.SearchIndex
 import co.torri.reindxr.index.SearchIndexResult
+import co.torri.jsonr._
 
 
 object Application extends Controller {
@@ -20,7 +20,6 @@ object Application extends Controller {
 	private val indexedData = remote.actorFor("search-service", "localhost", 8123)
   
 	def index = Action {
-		println(configuration.get("irclog.logsdir").map(_.value).getOrElse(""))
     	Ok(views.html.index())
   	}
 	

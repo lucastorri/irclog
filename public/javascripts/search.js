@@ -13,10 +13,11 @@ $(function() {
 			
 			
 			$(".result").remove();
-
-			var result = JSON.parse(msg.data);
+            console.log(msg.data);
 			
-			for (var file in result.previews) {
+            var result = JSON.parse(msg.data);
+			
+			result.files.forEach(function(file) {
                 var fileUrl = document.URL + 'log/' + file;
                 var fileElement = $('<li/>', {
                     'class': 'result'
@@ -26,28 +27,17 @@ $(function() {
                     'href': fileUrl
                 }).appendTo(fileElement);
                 var previewElements = $('<ul/>',{});
-				result.previews[file].reverse().forEach(function(p) {
-                    var previewElement = $('<li/>', {
-                        'class': 'result'
-                    });
+				result.previews[file].forEach(function(p) {
+                    var previewElement = $('<li/>', {});
                     $('<a/>', {
-                        'href': fileUrl + '#' + p[1],
-                        'text': p[0]
+                        'href': fileUrl + '#', //+ line number
+                        'html': p
                     }).appendTo(previewElement);
                     previewElement.appendTo(previewElements);
 				});
                 previewElements.appendTo(fileElement);
                 fileElement.appendTo('#searchresults');
-			}
-
-			  /*result.files.forEach(function(f) {
-			    $('<li/>', {
-			        'class': 'prettyprint result',
-			        href: f,
-			        text: f
-			    }).appendTo('#searchresults');
-			  });
-			*/
+			});
 		};
 		
 		return ws;
