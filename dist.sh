@@ -14,6 +14,7 @@ rmdir $UNZIP_DIR
 mv lib lib-web
 rm start
 cp -r ../bin .
+mv conf bin
 
 zip -r $DIST_ZIP *
 
