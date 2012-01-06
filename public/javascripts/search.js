@@ -1,6 +1,6 @@
 $(function() {
 
-	var wsUri = "ws://localhost:9000/search";
+	var wsUri = "ws://"+location.host+"/search";
 	var connectToServer = function () {
 		ws = new WebSocket(wsUri);
 		ws.onopen = function(evt) {};
@@ -9,16 +9,12 @@ $(function() {
 		
 		ws.onmessage = function(msg) {
 			
-//{"query": "remote", "previews": {"akka.txt": [["the remote server on the node that the actor is residing, automatically.", 3], ["The sender of a remote message will be reachable with a reply through", 2], ["Automatic remote ‘sender’ reference management", 0]]}}
-			
-			
 			$(".result").remove();
-            console.log(msg.data);
 			
             var result = JSON.parse(msg.data);
 			
 			result.files.forEach(function(file) {
-                var fileUrl = document.URL + 'log/' + file + "?hl=" + result.query;
+                var fileUrl = "http://" + location.host + '/log/' + file + "?hl=" + result.query;
                 var fileElement = $('<li/>', {
                     'class': 'result'
                 });
