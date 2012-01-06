@@ -5,16 +5,18 @@
   # IRCLOG_LOGS_DIR
   # IRCLOG_PIDS_DIR
 
+cd `dirname "$0"`
 if [ -a env.sh ]
 then
 	source env.sh
 fi
 
+cp() { cd ../lib-web; pwd; }
 
 SCRIPT=`basename "$0"`
-SCRIPT_DIR=`dirname "$0"`
+SCRIPT_DIR=`pwd`
 MAIN=play.core.server.NettyServer
-CLASSPATH="$SCRIPT_DIR/../lib-web/*"
+CLASSPATH=$(find "`cp`" -name '*.jar' |xargs echo  |tr ' ' ':')
 LOG_FILE=$IRCLOG_LOGS_DIR/$SCRIPT.log
 PID_FILE=$IRCLOG_PIDS_DIR/$SCRIPT.pid
 
