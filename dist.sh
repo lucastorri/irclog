@@ -1,6 +1,7 @@
 #!/bin/bash
 
 rm -rf dist
+mkdir dist
 play dist
 cd `dirname "$0"`/dist
 ZIP=`ls -1 | grep .zip`
