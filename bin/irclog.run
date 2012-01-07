@@ -16,7 +16,7 @@ cp() { cd ../lib-web; pwd; }
 SCRIPT=`basename "$0"`
 SCRIPT_DIR=`pwd`
 MAIN=play.core.server.NettyServer
-CLASSPATH=$(find "`cp`" -name '*.jar' |xargs echo  |tr ' ' ':')
+CLASSPATH=$(find "`cp`" -name '*.jar' | xargs echo | tr ' ' ':')
 LOG_FILE=$IRCLOG_LOGS_DIR/$SCRIPT.log
 PID_FILE=$IRCLOG_PIDS_DIR/$SCRIPT.pid
 
