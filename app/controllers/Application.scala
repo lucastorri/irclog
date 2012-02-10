@@ -28,14 +28,28 @@ object Application extends Controller {
     //}
   //}
 
-  def search = WebSocket.using[String] { request => (null, null) }
+  def search = WebSocket.using[String] { request => 
+  
+  // Log events to the console
+  val out = Enumerator.imperative[String]()
+
+
+    val in = Iteratee.foreach[String](s => out.push(s)).mapDone { _ =>
+    println("Disconnected")
+  }
+  
+  // Send a single 'Hello!' message
+  
+  (in, out)
+}
 
   def log(file: String, query: String) = Action {
-    AsyncResult {
-      (indexedData ? HighlightResult(query, file)).mapTo[String].asPromise.map { result =>
-        Ok(views.html.log(result))
-      }
-    }
+    Ok(views.html.index())
+    //AsyncResult {
+//      (indexedData ? HighlightResult(query, file)).mapTo[String].asPromise.map { result =>
+        //Ok(views.html.log(null))
+      //}
+//    }
   }
 
 }

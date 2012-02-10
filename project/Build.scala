@@ -9,7 +9,6 @@ object ApplicationBuild extends Build {
 
     val appDependencies = Seq(
         //"com.typesafe.akka" % "akka-actor" % "2.0-M4",
-        "com.typesafe.akka" % "akka-remote" % "2.0-M4"
     )
 
     val main = PlayProject(appName, appVersion, appDependencies, mainLang = SCALA).settings(
