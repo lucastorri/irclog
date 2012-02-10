@@ -1,3 +1,5 @@
+var debug = false;
+
 $(function() {
 
   var wsUri = "ws://"+location.host+"/search";
@@ -8,10 +10,9 @@ $(function() {
     ws.onerror = function(evt) {};
 
     ws.onmessage = function(msg) {
+      debug && console.log(msg);
 
       $(".result").remove();
-
-      console.log(msg);
       var result = JSON.parse(msg.data);
 
       result.files.forEach(function(file) {
@@ -26,7 +27,8 @@ $(function() {
         var previewElements = $('<ul/>',{});
         result.previews[file].forEach(function(p) {
           var previewElement = $('<li/>', {
-            'html': p
+            'html': p,
+            'class': 'snippet'
           });
           previewElement.appendTo(previewElements);
         });
@@ -51,7 +53,7 @@ $(function() {
 
   if (location.hash) {
     queryField[0].value = location.hash.substring(1);
-    search();
+    setTimeout(search, 500);
   }
 
   queryField.keyup(function() {
