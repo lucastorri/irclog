@@ -10,15 +10,8 @@ import scala.io.Source
 case class SearchResponse(query: String = "", files: List[String] = List(), previews: Map[String,List[String]] = Map())
 
 object SearchResponse {
-	def apply(r: Option[SearchIndexResult]) = {
-		r match {
-			case Some(result) => {
-				val q = result.query
-				val files = result.files.map { case (f, previews) => f }
-				val previews = result.files.toMap
-				new SearchResponse(q, files, previews)
-			}
-			case None => new SearchResponse()
-		}
-	}.toJSON.toString
+
+  def apply(r: SearchIndexResult) =
+    new SearchResponse(r.query, r.files.map { case (f, previews) => f }, r.files.toMap).toJSON.toString
+
 }
